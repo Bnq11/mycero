@@ -1,6 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/Models/passwords.dart';
 import 'package:flutter_application_1/addToWallet.dart';
-import 'package:flutter_application_1/editWallet.dart';
+import 'package:flutter_application_1/cards/password_card.dart';
 
 class wallet extends StatefulWidget {
   const wallet({Key? key}) : super(key: key);
@@ -10,6 +12,13 @@ class wallet extends StatefulWidget {
 }
 
 class _walletState extends State<wallet> {
+  List<Object> _passwordsList = [];
+
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    getUserPasswords();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,284 +60,48 @@ class _walletState extends State<wallet> {
           ],
         ),
         SizedBox(
-          height: 15,
+          height: 19,
         ),
         Container(
-          width: 350,
-          height: 55,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(12),
-            border: Border.all(
-              color: Color(0xff616161),
-              width: 1.5,
-            ),
-          ),
-          padding: const EdgeInsets.symmetric(
-            horizontal: 16,
-          ),
-          child: TextFormField(
-              decoration: const InputDecoration(
-                  border: InputBorder.none,
-                  prefixIcon: Icon(
-                    Icons.search,
-                    color: Color(0xFF616161),
-                    size: 30,
-                  ),
-                  hintText: 'Search your password',
-                  hintStyle: TextStyle(fontSize: 16, color: Color(0xFF616161))),
-              textAlign: TextAlign.start,
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 19,
-              )),
+          width: 317,
+          height: 1,
+          color: Color(0xFF242424),
         ),
         SizedBox(
-          height: 40,
+          height: 38,
         ),
         Padding(
-          padding: const EdgeInsets.only(right: 200),
+          padding: const EdgeInsets.only(right: 170, bottom: 10),
           child: Text(
-            'Your passwords',
+            '  Your passwords',
             style: TextStyle(
-                fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
+                fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),
             textAlign: TextAlign.left,
           ),
         ),
-        SizedBox(
-          height: 17,
+        Expanded(
+          child: ListView.builder(
+            itemCount: _passwordsList.length,
+            itemBuilder: (BuildContext context, int index) {
+              return password_card(_passwordsList[index] as passwords);
+            },
+          ),
         ),
-        Container(
-            width: 360,
-            height: 160,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(16),
-              color: Color(0xff1b1b1e),
-            ),
-            padding: const EdgeInsets.only(
-              left: 18,
-              right: 18,
-              top: 12,
-              bottom: 10,
-            ),
-            child:
-                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Row(
-                children: [
-                  Icon(
-                    Icons.vpn_key_outlined,
-                    color: Color(0xFF8A70BE),
-                    size: 22,
-                  ),
-                  SizedBox(
-                    width: 4,
-                  ),
-                  Text('Instagram',
-                      style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: Color(0xFF8A70BE)))
-                ],
-              ),
-              SizedBox(
-                height: 16,
-              ),
-              Text(
-                'UserName',
-                style: TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.bold,
-                    color: Color(0xFFDADADA)),
-                textAlign: TextAlign.left,
-              ),
-              SizedBox(
-                height: 3,
-              ),
-              Text(
-                ' ReemaNawaff_',
-                style: TextStyle(color: Color(0xFFB7B7B7), fontSize: 13),
-                textAlign: TextAlign.start,
-              ),
-              SizedBox(
-                height: 17,
-              ),
-              Row(children: [
-                Column(mainAxisAlignment: MainAxisAlignment.start, children: [
-                  Text(
-                    'Password',
-                    style: TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xFFDADADA)),
-                    textAlign: TextAlign.left,
-                  ),
-                  SizedBox(
-                    height: 3,
-                  ),
-                  Text(
-                    '*********',
-                    style: TextStyle(color: Color(0xFFB7B7B7), fontSize: 13),
-                    textAlign: TextAlign.start,
-                  )
-                ]),
-                SizedBox(
-                  width: 12,
-                ),
-                Icon(Icons.visibility_outlined,
-                    color: Color(0xFFB7B7B7), size: 20),
-                SizedBox(
-                  width: 112,
-                ),
-                InkWell(
-                  onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (_) => editWallet()));
-                  },
-                  child: Container(
-                      height: 30,
-                      width: 68,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        color: Color(0xFF8A70BE),
-                      ),
-                      child: Center(
-                          child: Text(
-                        'Edit',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 14,
-                          fontFamily: 'Inter',
-                        ),
-                      ))),
-                ),
-                SizedBox(
-                  width: 6,
-                ),
-                Icon(
-                  Icons.delete_outlined,
-                  color: Color(0xFFEC1F1F),
-                  size: 32,
-                )
-              ])
-            ])),
-        SizedBox(
-          height: 20,
-        ),
-        Container(
-            width: 360,
-            height: 160,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(16),
-              color: Color(0xff1b1b1e),
-            ),
-            padding: const EdgeInsets.only(
-              left: 18,
-              right: 18,
-              top: 12,
-              bottom: 10,
-            ),
-            child:
-                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Row(
-                children: [
-                  Icon(
-                    Icons.vpn_key_outlined,
-                    color: Color(0xFF8A70BE),
-                    size: 22,
-                  ),
-                  SizedBox(
-                    width: 4,
-                  ),
-                  Text('Twitter',
-                      style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: Color(0xFF8A70BE)))
-                ],
-              ),
-              SizedBox(
-                height: 16,
-              ),
-              Text(
-                'UserName',
-                style: TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.bold,
-                    color: Color(0xFFDADADA)),
-                textAlign: TextAlign.left,
-              ),
-              SizedBox(
-                height: 3,
-              ),
-              Text(
-                ' Reema_20',
-                style: TextStyle(color: Color(0xFFB7B7B7), fontSize: 13),
-                textAlign: TextAlign.start,
-              ),
-              SizedBox(
-                height: 17,
-              ),
-              Row(children: [
-                Column(mainAxisAlignment: MainAxisAlignment.start, children: [
-                  Text(
-                    'Password',
-                    style: TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
-                        color: Color(0xFFDADADA)),
-                    textAlign: TextAlign.left,
-                  ),
-                  SizedBox(
-                    height: 3,
-                  ),
-                  Text(
-                    '**********',
-                    style: TextStyle(color: Color(0xFFB7B7B7), fontSize: 13),
-                    textAlign: TextAlign.start,
-                  )
-                ]),
-                SizedBox(
-                  width: 12,
-                ),
-                Icon(Icons.visibility_outlined,
-                    color: Color(0xFFB7B7B7), size: 20),
-                SizedBox(
-                  width: 112,
-                ),
-                InkWell(
-                  onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (_) => editWallet()));
-                  },
-                  child: Container(
-                      height: 30,
-                      width: 68,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(8),
-                        color: Color(0xFF8A70BE),
-                      ),
-                      child: Center(
-                          child: Text(
-                        'Edit',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 14,
-                          fontFamily: 'Inter',
-                        ),
-                      ))),
-                ),
-                SizedBox(
-                  width: 6,
-                ),
-                Icon(
-                  Icons.delete_outlined,
-                  color: Color(0xFFEC1F1F),
-                  size: 32,
-                )
-              ])
-            ]))
       ]),
     );
+  }
+
+  Future getUserPasswords() async {
+    var data = await FirebaseFirestore.instance
+        .collection('users')
+        .doc('Kbayxiiu2qgCHVFVpMud')
+        .collection('passwordsswallet')
+        .orderBy('platform', descending: false)
+        .get();
+
+    setState(() {
+      _passwordsList =
+          List.from(data.docs.map((doc) => passwords.fromSnapshot(doc)));
+    });
   }
 }

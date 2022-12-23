@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/navigationBar.dart';
-import 'package:flutter_application_1/wallet.dart';
 
 class editWallet extends StatefulWidget {
   const editWallet({Key? key}) : super(key: key);
@@ -69,10 +68,6 @@ class _editWalletState extends State<editWallet> {
                             horizontal: 16,
                           ),
                           child: TextFormField(
-                              validator: (value) {
-                                if (value == null || value.isEmpty)
-                                  return 'Please nter your user name';
-                              },
                               decoration: const InputDecoration(
                                 border: InputBorder.none,
                               ),
@@ -139,10 +134,6 @@ class _editWalletState extends State<editWallet> {
                             horizontal: 16,
                           ),
                           child: TextFormField(
-                              validator: (value) {
-                                if (value == null || value.isEmpty)
-                                  return 'Please nter your user name';
-                              },
                               decoration: const InputDecoration(
                                 border: InputBorder.none,
                               ),
@@ -161,10 +152,7 @@ class _editWalletState extends State<editWallet> {
                               Center(
                                   child: InkWell(
                                 onTap: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (_) => navigationBar()));
+                                  Navigator.pop(context);
                                 },
                                 child: Container(
                                   height: 41,
@@ -192,7 +180,7 @@ class _editWalletState extends State<editWallet> {
                               Center(
                                   child: InkWell(
                                 onTap: () {
-                                  Navigator.push(
+                                  Navigator.pop(
                                       context,
                                       MaterialPageRoute(
                                           builder: (_) => navigationBar()));

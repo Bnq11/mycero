@@ -68,10 +68,6 @@ class _editProfileState extends State<editProfile> {
                           horizontal: 16,
                         ),
                         child: TextFormField(
-                            validator: (value) {
-                              if (value == null || value.isEmpty)
-                                return 'Please nter your user name';
-                            },
                             decoration: const InputDecoration(
                               border: InputBorder.none,
                             ),
@@ -235,10 +231,7 @@ class _editProfileState extends State<editProfile> {
                         Center(
                             child: InkWell(
                           onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (_) => navigationBar()));
+                            Navigator.pop(context);
                           },
                           child: Container(
                             height: 56,
@@ -266,10 +259,7 @@ class _editProfileState extends State<editProfile> {
                         Center(
                             child: InkWell(
                           onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (_) => navigationBar()));
+                            Navigator.pop(context);
                           },
                           child: Container(
                             height: 56,

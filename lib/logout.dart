@@ -6,7 +6,7 @@ import 'package:flutter/services.dart';
 /// Service for handling user auto logout based on user activity
 class AutoLogoutService {
   static Timer? _timer;
-  static const autoLogoutTimer = 1;
+  static const autoLogoutTimer = 15;
   // Instance of authentication service, prefer singleton
   final LocalAuth _authService = LocalAuth();
 

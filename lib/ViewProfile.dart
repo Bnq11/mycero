@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/LoginPage.dart';
 import 'package:flutter_application_1/editProfile.dart';
@@ -10,6 +11,9 @@ class ViewProfile extends StatefulWidget {
 }
 
 class _ViewProfileState extends State<ViewProfile> {
+  final auth = FirebaseAuth.instance;
+  final User? user = FirebaseAuth.instance.currentUser;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,16 +45,10 @@ class _ViewProfileState extends State<ViewProfile> {
             ),
             Column(
               children: [
-                InkWell(
-                  onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (_) => LoginPage()));
-                  },
-                  child: Icon(
-                    Icons.logout,
-                    color: Color(0xFF8A70BE),
-                    size: 35,
-                  ),
+                Icon(
+                  Icons.logout,
+                  color: Color(0xFF8A70BE),
+                  size: 35,
                 ),
                 Text(
                   'Log out',
@@ -58,7 +56,59 @@ class _ViewProfileState extends State<ViewProfile> {
                     color: Color(0xFF8A70BE),
                     fontSize: 11,
                   ),
-                )
+                ),
+                // InkWell(onTap: () async {
+                //   await showDialog(
+                //       context: context,
+                //       builder: (context) {
+                //         return AlertDialog(
+                //           title: Row(children: [
+                //             const SizedBox(
+                //               width: 8,
+                //             ),
+                //             Text('Sign out'),
+                //           ]),
+                //           content: Text('Do you wanna sign out?'),
+                //           actions: [
+                //             TextButton(
+                //               onPressed: () {
+                //                 if (Navigator.canPop(context)) {
+                //                   Navigator.pop(context);
+                //                 }
+                //               },
+                //               child: Text(
+                //                 'Cancel',
+                //                 textAlign: TextAlign.center,
+                //                 style: TextStyle(
+                //                   color: Color.fromARGB(255, 1, 1, 1),
+                //                   fontSize: 18,
+                //                   fontFamily: 'Inter',
+                //                 ),
+                //               ),
+                //             ),
+                //             TextButton(
+                //               onPressed: () async {
+                //                 await FirebaseAuth.instance.signOut();
+                //                 Navigator.of(context).push(
+                //                   MaterialPageRoute(
+                //                     builder: (context) => const LoginPage(),
+                //                   ),
+                //                 );
+                //               },
+                //               child: Text(
+                //                 'OK',
+                //                 textAlign: TextAlign.center,
+                //                 style: TextStyle(
+                //                   color: Color.fromARGB(255, 195, 7, 7),
+                //                   fontSize: 18,
+                //                   fontFamily: 'Inter',
+                //                 ),
+                //               ),
+                //             ),
+                //           ],
+                //         );
+                //       });
+                // }),
               ],
             )
           ],

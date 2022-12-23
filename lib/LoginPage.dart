@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/navigationBar.dart';
 import 'package:flutter_application_1/signUp.dart';
 import 'package:flutter_application_1/localAuth.dart';
-import 'package:form_field_validator/form_field_validator.dart';
-import 'package:flutter_application_1/wallet.dart';
+
+import 'LoginPageOTP.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -18,7 +18,6 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     var userNameController = TextEditingController();
-    final validCharacters = RegExp(r'^[a-zA-Z0-9._]+$');
 
     return Scaffold(
         backgroundColor: Color(0xFF141416),
@@ -123,35 +122,77 @@ class _LoginPageState extends State<LoginPage> {
                                     ),
                                   ),
                                 ),
+
                                 Expanded(
-                                  child: Container(
-                                    height: double.infinity,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(8),
-                                    ),
-                                    padding: const EdgeInsets.symmetric(
-                                      horizontal: 30,
-                                      vertical: 2,
-                                    ),
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          "OTP \nOne Time Password",
-                                          textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                            color: Color(0xff595961),
-                                            fontSize: 10,
+                                  child: InkWell(
+                                    onTap: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (_) => LoginPageOTP()));
+                                    },
+                                    child: Container(
+                                      height: double.infinity,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(8),
+                                        color: Color(0xff141416),
+                                      ),
+                                      padding: const EdgeInsets.only(
+                                        left: 10,
+                                        // right: 51,
+                                      ),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            "OTP \nOne Time Password",
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(
+                                              color: Color(0xff595961),
+                                              fontSize: 10,
+                                            ),
                                           ),
-                                        ),
-                                      ],
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 ),
+
+                                // Expanded(
+                                //   child: Container(
+                                //     height: double.infinity,
+                                //     decoration: BoxDecoration(
+                                //       borderRadius: BorderRadius.circular(8),
+                                //     ),
+                                //     padding: const EdgeInsets.symmetric(
+                                //       horizontal: 30,
+                                //       vertical: 2,
+                                //     ),
+                                //     child: Row(
+                                //       mainAxisSize: MainAxisSize.max,
+                                //       mainAxisAlignment:
+                                //           MainAxisAlignment.center,
+                                //       crossAxisAlignment:
+                                //           CrossAxisAlignment.center,
+
+                                //       children: [
+                                //         Text(
+                                //           "OTP \nOne Time Password",
+                                //           textAlign: TextAlign.center,
+                                //           style: TextStyle(
+                                //             color: Color(0xff595961),
+                                //             fontSize: 10,
+                                //           ),
+                                //           ),
+                                //       ],
+
+                                //     ),
+                                //   ),
+                                // ),
                               ],
                             ),
                           ),
@@ -163,7 +204,6 @@ class _LoginPageState extends State<LoginPage> {
                 SizedBox(
                   height: 22,
                 ),
-
                 Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
                   Text("    Username",
                       style: TextStyle(
@@ -174,107 +214,84 @@ class _LoginPageState extends State<LoginPage> {
                       )),
                 ]),
                 SizedBox(height: 10),
-                Form(
-                  child: Container(
-                    width: 320,
-                    height: 55,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12),
-                      border: Border.all(
-                        color: Color(0xff616161),
-                        width: 1.5,
-                      ),
-                    ),
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 16,
-                    ),
-                    child: TextFormField(
-                        validator: (value) {
-                          if (value == null || value.isEmpty)
-                            return 'Required';
-                          else if (value.contains(" ")) {
-                            return 'Enter a valid username';
-                          } else if (value.length < 5) {
-                            return 'Username should be at least 5 characters';
-                          } else if (value.length > 10) {
-                            return 'Username should not exceed 10 characters';
-                          } else if (value.contains("-/@#\$%!*+=(){}[]?")) {
-                            return 'Valid special characters:( _ . )';
-                          }
-                        },
-                        controller: userNameController,
-                        decoration: const InputDecoration(
-                            border: InputBorder.none,
-                            hintText: 'Enter your username',
-                            hintStyle: TextStyle(
-                                fontSize: 16, color: Color(0xFF616161))),
-                        textAlign: TextAlign.start,
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 19,
-                        )),
-                  ),
-                ),
-                SizedBox(height: 46),
-                // Center(
-                // child: InkWell(
-                // onTap: () {
-                //   Navigator.push(context,
-                //       MaterialPageRoute(builder: (_) => navigationBar()));
-                // },
-                // child: GestureDetector(
-                //   onTap: () async {
-                //     final authenticate = await LocalAuth.authenticate();
-                //   },
                 Container(
-                  height: 50,
-                  width: 273,
+                  width: 320,
+                  height: 55,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(12),
-                    color: Color(0xFF8A70BE),
+                    border: Border.all(
+                      color: Color(0xff616161),
+                      width: 1.5,
+                    ),
                   ),
-                  //     child: Center(
-                  // child: Container(
-                  //   height: 50,
-                  //   width: 273,
-                  //   decoration: BoxDecoration(
-                  //     borderRadius: BorderRadius.circular(12),
-                  //     color: Color(0xFF8A70BE),
-
-                  child: Center(
-                    child: GestureDetector(
-                      onTap: () async {
-                        bool isAuthenticated = await LocalAuth.authenticate();
-                        if (isAuthenticated) {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const navigationBar()),
-                          );
-                        } else {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                              content: Text('Authentication failed.'),
-                            ),
-                          );
-                        }
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                  ),
+                  child: TextFormField(
+                      validator: (value) {
+                        if (value == null || value.isEmpty)
+                          return 'Please nter your username';
                       },
-                      // onTap: () async {
-                      //   final authenticate = await LocalAuth.authenticate();
-                      // },
-                      child: Text(
-                        'Log in',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 25,
-                            fontFamily: 'Inter',
-                            fontWeight: FontWeight.bold),
+                      controller: userNameController,
+                      decoration: const InputDecoration(
+                          border: InputBorder.none,
+                          hintText: 'Enter your username',
+                          hintStyle: TextStyle(
+                              fontSize: 16, color: Color(0xFF616161))),
+                      textAlign: TextAlign.start,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 19,
+                      )),
+                ),
+                SizedBox(height: 46),
+                Center(
+                    child: InkWell(
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (_) => navigationBar()));
+                  },
+                  child: Container(
+                    height: 50,
+                    width: 273,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(12),
+                      color: Color(0xFF8A70BE),
+                    ),
+                    child: Center(
+                      child: GestureDetector(
+                        onTap: () async {
+                          bool isAuthenticated = await LocalAuth.authenticate();
+                          if (isAuthenticated) {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const navigationBar()),
+                            );
+                          } else {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text('Authentication failed.'),
+                              ),
+                            );
+                          }
+                        },
+                        // onTap: () async {
+                        //   final authenticate = await LocalAuth.authenticate();
+                        // },
+                        child: Text(
+                          'Log in',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 25,
+                              fontFamily: 'Inter',
+                              fontWeight: FontWeight.bold),
+                        ),
                       ),
                     ),
                   ),
-                ),
-
+                )),
                 SizedBox(height: 38),
                 Row(
                   mainAxisSize: MainAxisSize.min,
