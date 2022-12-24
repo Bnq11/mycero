@@ -231,12 +231,7 @@ class _ViewProfileState extends State<ViewProfile> {
             actions: [
               TextButton(
                 onPressed: () async {
-                  await FirebaseAuth.instance.signOut();
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => const LoginPage(),
-                    ),
-                  );
+                  submitAction(context);
                 },
                 child: Text(
                   'Log Out',
@@ -270,5 +265,12 @@ class _ViewProfileState extends State<ViewProfile> {
         });
   }
 
-  submitAction(BuildContext context) {}
+  submitAction(BuildContext context) async {
+    await FirebaseAuth.instance.signOut();
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => const LoginPage(),
+      ),
+    );
+  }
 }

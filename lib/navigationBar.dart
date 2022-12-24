@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/LoginPage.dart';
 import 'package:flutter_application_1/ViewProfile.dart';
 import 'package:flutter_application_1/docs.dart';
 import 'package:flutter_application_1/wallet.dart';

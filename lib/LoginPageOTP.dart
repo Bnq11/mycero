@@ -339,6 +339,7 @@ class _LoginPageOTPState extends State<LoginPageOTP> {
     );
   }
 
+  final AutoLogoutService _autoLogoutService = AutoLogoutService();
   void verifyOTP() async {
     PhoneAuthCredential credential = PhoneAuthProvider.credential(
         verificationId: verificationID, smsCode: otpController.text);
@@ -352,8 +353,7 @@ class _LoginPageOTPState extends State<LoginPageOTP> {
     ).whenComplete(
       () {
         if (user != null) {
-          AutoLogoutService auto = new AutoLogoutService();
-          auto.startNewTimer();
+          _autoLogoutService.startNewTimer(context);
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => const navigationBar()),
