@@ -45,72 +45,21 @@ class _ViewProfileState extends State<ViewProfile> {
             ),
             Column(
               children: [
-                Icon(
-                  Icons.logout,
-                  color: Color(0xFF8A70BE),
-                  size: 35,
+                SizedBox(
+                  width: 10,
                 ),
-                Text(
-                  'Log out',
-                  style: TextStyle(
+                TextButton(
+                  onPressed: () {
+                    openDialogueBox(context);
+                  },
+                  child: Icon(
+                    Icons.logout,
                     color: Color(0xFF8A70BE),
-                    fontSize: 11,
+                    size: 35,
                   ),
                 ),
-                // InkWell(onTap: () async {
-                //   await showDialog(
-                //       context: context,
-                //       builder: (context) {
-                //         return AlertDialog(
-                //           title: Row(children: [
-                //             const SizedBox(
-                //               width: 8,
-                //             ),
-                //             Text('Sign out'),
-                //           ]),
-                //           content: Text('Do you wanna sign out?'),
-                //           actions: [
-                //             TextButton(
-                //               onPressed: () {
-                //                 if (Navigator.canPop(context)) {
-                //                   Navigator.pop(context);
-                //                 }
-                //               },
-                //               child: Text(
-                //                 'Cancel',
-                //                 textAlign: TextAlign.center,
-                //                 style: TextStyle(
-                //                   color: Color.fromARGB(255, 1, 1, 1),
-                //                   fontSize: 18,
-                //                   fontFamily: 'Inter',
-                //                 ),
-                //               ),
-                //             ),
-                //             TextButton(
-                //               onPressed: () async {
-                //                 await FirebaseAuth.instance.signOut();
-                //                 Navigator.of(context).push(
-                //                   MaterialPageRoute(
-                //                     builder: (context) => const LoginPage(),
-                //                   ),
-                //                 );
-                //               },
-                //               child: Text(
-                //                 'OK',
-                //                 textAlign: TextAlign.center,
-                //                 style: TextStyle(
-                //                   color: Color.fromARGB(255, 195, 7, 7),
-                //                   fontSize: 18,
-                //                   fontFamily: 'Inter',
-                //                 ),
-                //               ),
-                //             ),
-                //           ],
-                //         );
-                //       });
-                // }),
               ],
-            )
+            ),
           ],
         ),
         SizedBox(
@@ -269,4 +218,57 @@ class _ViewProfileState extends State<ViewProfile> {
       ]),
     );
   }
+
+  openDialogueBox(BuildContext context) {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text('Are you sure you want to log out of Cero?'),
+            content: SizedBox(
+              width: 50,
+            ),
+            actions: [
+              TextButton(
+                onPressed: () async {
+                  await FirebaseAuth.instance.signOut();
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const LoginPage(),
+                    ),
+                  );
+                },
+                child: Text(
+                  'Log Out',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Color.fromARGB(255, 195, 7, 7),
+                    fontSize: 18,
+                    fontFamily: 'Inter',
+                  ),
+                ),
+              ),
+              TextButton(
+                onPressed: () {
+                  if (Navigator.canPop(context)) {
+                    Navigator.pop(context);
+                  }
+                  // Navigator.pop(context);
+                },
+                child: Text(
+                  'Cancel',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: Color.fromARGB(255, 1, 1, 1),
+                    fontSize: 18,
+                    fontFamily: 'Inter',
+                  ),
+                ),
+              )
+            ],
+          );
+        });
+  }
+
+  submitAction(BuildContext context) {}
 }

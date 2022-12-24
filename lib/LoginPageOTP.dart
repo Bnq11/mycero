@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/navigationBar.dart';
 import 'package:flutter_application_1/signUp.dart';
 import 'package:flutter_application_1/localAuth.dart';
+import 'package:flutter_application_1/logout.dart';
 
 // import 'package:flutter/fluttertoast/fluttertoast.dart';
 import 'LoginPage.dart';
@@ -351,6 +352,8 @@ class _LoginPageOTPState extends State<LoginPageOTP> {
     ).whenComplete(
       () {
         if (user != null) {
+          AutoLogoutService auto = new AutoLogoutService();
+          auto.startNewTimer();
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => const navigationBar()),
